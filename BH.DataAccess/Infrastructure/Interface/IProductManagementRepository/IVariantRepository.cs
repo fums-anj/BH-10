@@ -13,5 +13,6 @@ namespace BH.DataAccess.Infrastructure.Interface.IProductManagementRepository
         void Update(Variant obj);
         public string GenerateSKU(string shopName);
         public string GenerateCode();
-    }
+		string GenerateSKU();
+	}
 }
