@@ -1,4 +1,4 @@
-﻿using BarcodeLib;
+﻿using BarcodeStandard;
 using BH.DataAccess.Infrastructure.Interface.IRepository;
 using BH.Models.InventoryManagement;
 using BH.Models.OrganizationManagement;
@@ -9,8 +9,8 @@ using BHWeb.Areas.Admin.Controllers;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using System.Drawing;
-using System.Drawing.Imaging;
+using SkiaSharp;
+
 
 namespace BHWeb.Areas.ProductManagement.Controllers
 {
@@ -126,7 +126,15 @@ namespace BHWeb.Areas.ProductManagement.Controllers
                 {
                     obj.Variant.ModifiedBy = _userId;
                     obj.Variant.ModifiedDate = DateTime.Now;
-                    _unitOfWork.Variant.Update(obj.Variant);
+					if (string.IsNullOrEmpty(obj.Variant.SKU))
+					{
+						obj.Variant.SKU = _unitOfWork.Variant.GenerateSKU(applicationUser.Shop.Name);
+					}
+					if (string.IsNullOrEmpty(obj.Variant.PackingSKU))
+					{
+						obj.Variant.PackingSKU = _unitOfWork.Variant.GenerateSKU(applicationUser.Shop.Name);
+					}
+					_unitOfWork.Variant.Update(obj.Variant);
                     TempData["success"] = "Variant updated successfully";
                 }
                 _unitOfWork.Save();
@@ -182,31 +190,56 @@ namespace BHWeb.Areas.ProductManagement.Controllers
             return RedirectToAction("Index");
         }
 
-        //GenerateBarcode
-        public IActionResult GenerateBarcode(int? id, string? SKU)
-        {
-            if (id == null || id == 0)
-            {
-                return NotFound();
-            }
-            var obj = _unitOfWork.Variant.GetFirstOrDefault(u => u.Id == id && (u.SKU == SKU || u.PackingSKU == SKU), includeProperties: "ApplicationUser,ApplicationUser.Shop");
+		//GenerateBarcode
+		public IActionResult GenerateBarcode(int? id, string? SKU)
+		{
+			if (id == null || id == 0)
+			{
+				return NotFound();
+			}
+			var obj = _unitOfWork.Variant.GetFirstOrDefault(u => u.Id == id && (u.SKU == SKU || u.PackingSKU == SKU), includeProperties: "ApplicationUser,ApplicationUser.Shop");
 
-            if (obj == null)
-            {
-                return NotFound();
-            }
-            Barcode barcode = new Barcode();
-            Image image = barcode.Encode(TYPE.CODE128, SKU, Color.Black, Color.White, 140, 50);
-            using (MemoryStream ms = new MemoryStream())
-            {
-                image.Save(ms, ImageFormat.Png);
-                ViewBag.Barcode = "data:image/png;base64," + Convert.ToBase64String(ms.ToArray());
-            }
-            return View(obj);
-        }
+			if (obj == null)
+			{
+				return NotFound();
+			}
+			if (string.IsNullOrEmpty(SKU) || SKU.Length != 12 || !SKU.All(char.IsDigit))
+			{
+				return BadRequest("Invalid SKU. Please provide a 12-digit numeric SKU.");
+			}
+			try
+			{
+				Barcode barcode = new Barcode
+				{
 
-        //POST
-        [HttpPost]
+					Alignment = AlignmentPositions.Center,
+					Height = 50,
+					Width = 140,
+					BackColor = SKColors.White,
+					ForeColor = SKColors.Black,
+					EncodedType = BarcodeStandard.Type.Ean13,
+				};
+
+				SkiaSharp.SKImage barimage = barcode.Encode(SKU);
+				using (var ms = new MemoryStream())
+				{
+					using (var data = barimage.Encode(SKEncodedImageFormat.Png, 100))
+					{
+						data.SaveTo(ms);
+					}
+					ViewBag.Barcode = "data:image/png;base64," + Convert.ToBase64String(ms.ToArray());
+				}
+			}
+			catch (Exception ex)
+			{
+				// Log or handle the exception as needed
+				return StatusCode(500, "An error occurred while generating the barcode.");
+			}
+			return View(obj);
+		}
+
+		//POST
+		[HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult GenerateBarcode(Variant variant)
         {
