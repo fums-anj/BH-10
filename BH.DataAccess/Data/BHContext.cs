@@ -72,8 +72,8 @@ namespace BH.DataAccess.Data
                 ProficitCenterNum = 01,
                 CostCenterNum = 01,
                 SKU = 1,
-                VariantCode = 0000,
-                CustomerCode = 0000000000,
+                VariantCode = 0,
+                CustomerCode = 0,
                 CreatedDateTime = DateTime.Now
             });
             builder.Entity<UnitOfMeasure>().HasData(
