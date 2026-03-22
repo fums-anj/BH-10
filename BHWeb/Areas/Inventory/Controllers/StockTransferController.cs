@@ -1,4 +1,4 @@
-﻿using BH.DataAccess.Infrastructure.Interface.IRepository;
+using BH.DataAccess.Infrastructure.Interface.IRepository;
 using BH.Models.OrganizationManagement;
 using BH.Models.ProductManagement;
 using BH.Models.ViewModels;
@@ -7,6 +7,8 @@ using BHWeb.Areas.Admin.Controllers;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+
+#nullable disable
 
 namespace BHWeb.Areas.Inventory.Controllers
 {
@@ -39,7 +41,7 @@ namespace BHWeb.Areas.Inventory.Controllers
                 .Select(s => new StockTransferVM()
                 {
                     VariantId = s.Key,
-                    Code = s.FirstOrDefault().Variant.VariantCode,
+                    Code = s.FirstOrDefault()!.Variant.VariantCode,
                     ReceivingQuantity = s.Where(x => x.ReceivedQty >= 0).Sum(x => x.ReceivedQty),
                     ReturningToSupplierQuantity = s.Where(x => x.ReceivedQty < 0).Sum(x => x.ReceivedQty),
                     SellingQuantity = s.Sum(x => x.SalesQty),
@@ -47,8 +49,8 @@ namespace BHWeb.Areas.Inventory.Controllers
                     PurchaseStockIn = s.Where(x => x.ReceivedQty >= 0).Sum(x => x.UnitPurchasePrice * x.ReceivedQty),
                     PurchaseStockReturn = s.Where(x => x.ReceivedQty < 0).Sum(x => x.UnitPurchasePrice * x.ReceivedQty),
                     Sale = s.Sum(x => x.UnitSellingPrice * x.SalesQty),
-                    Product = s.FirstOrDefault().Variant.Name,
-                    LowStockQty = s.FirstOrDefault().Variant.LowStockWarningQuantity,
+                    Product = s.FirstOrDefault()!.Variant.Name,
+                    LowStockQty = s.FirstOrDefault()!.Variant.LowStockWarningQuantity,
                     // Balance = stockTransferVM.stockTransferTotalList.Where(x => x.VariantId == s.Key).Sum(x => x.ReceivedQty - x.StockSoldQty),
                     Balance = _unitOfWork.StockTransfer.GetStockQuantity(s.Key, (int)applicationUser.ShopId),
                     ProfitLoss = s.Sum(x => x.UnitSellingPrice * x.SalesQty) - s.Sum(x => x.UnitPurchasePrice * x.SalesQty)
@@ -56,6 +58,7 @@ namespace BHWeb.Areas.Inventory.Controllers
 
             return View(stockTransferVM);
         }
+
 
         [HttpPost]
         [AutoValidateAntiforgeryToken]
@@ -77,7 +80,7 @@ namespace BHWeb.Areas.Inventory.Controllers
                 .Select(s => new StockTransferVM()
                 {
                     VariantId = s.Key,
-                    Code = s.FirstOrDefault().Variant.VariantCode,
+                    Code = s.FirstOrDefault()!.Variant.VariantCode,
                     ReceivingQuantity = s.Where(x => x.ReceivedQty >= 0).Sum(x => x.ReceivedQty),
                     ReturningToSupplierQuantity = s.Where(x => x.ReceivedQty < 0).Sum(x => x.ReceivedQty),
                     SellingQuantity = s.Sum(x => x.SalesQty),
@@ -85,8 +88,8 @@ namespace BHWeb.Areas.Inventory.Controllers
                     PurchaseStockIn = s.Where(x => x.ReceivedQty >= 0).Sum(x => x.UnitPurchasePrice * x.ReceivedQty),
                     PurchaseStockReturn = s.Where(x => x.ReceivedQty < 0).Sum(x => x.UnitPurchasePrice * x.ReceivedQty),
                     Sale = s.Sum(x => x.UnitSellingPrice * x.SalesQty),
-                    Product = s.FirstOrDefault().Variant.Name,
-                    LowStockQty = s.FirstOrDefault().Variant.LowStockWarningQuantity,
+                    Product = s.FirstOrDefault()!.Variant.Name,
+                    LowStockQty = s.FirstOrDefault()!.Variant.LowStockWarningQuantity,
                     Balance = _unitOfWork.StockTransfer.GetStockQuantity(s.Key, (int)applicationUser.ShopId),
                     ProfitLoss = s.Sum(x => x.UnitSellingPrice * x.SalesQty) - s.Sum(x => x.UnitPurchasePrice * x.SalesQty)
                 }).ToList();
@@ -110,14 +113,14 @@ namespace BHWeb.Areas.Inventory.Controllers
                 .Select(s => new StockTransferVM()
                 {
                     VariantId = s.Key,
-                    Code = s.FirstOrDefault().Variant.VariantCode,
+                    Code = s.FirstOrDefault()!.Variant.VariantCode,
                     ReceivingQuantity = s.Sum(x => x.ReceivedQty),
                     SellingQuantity = s.Sum(x => x.SalesQty),
                     Purchase = s.Sum(x => x.UnitPurchasePrice * x.SalesQty),
                     PurchaseStockIn = s.Sum(x => x.UnitPurchasePrice * x.ReceivedQty),
                     Sale = s.Sum(x => x.UnitSellingPrice * x.SalesQty),
-                    Product = s.FirstOrDefault().Variant.Name,
-                    LowStockQty = s.FirstOrDefault().Variant.LowStockWarningQuantity,
+                    Product = s.FirstOrDefault()!.Variant.Name,
+                    LowStockQty = s.FirstOrDefault()!.Variant.LowStockWarningQuantity,
                     //Balance = s.Sum(x => x.ReceivedQty) - s.Sum(x => x.SalesQty),
                     Balance = _unitOfWork.StockTransfer.GetStockQuantity(s.Key, (int)applicationUser.ShopId),
                     ProfitLoss = s.Sum(x => x.UnitSellingPrice * x.SalesQty) - s.Sum(x => x.UnitPurchasePrice * x.SalesQty)
@@ -146,14 +149,14 @@ namespace BHWeb.Areas.Inventory.Controllers
                 .Select(s => new StockTransferVM()
                 {
                     VariantId = s.Key,
-                    Code = s.FirstOrDefault().Variant.VariantCode,
+                    Code = s.FirstOrDefault()!.Variant.VariantCode,
                     ReceivingQuantity = s.Sum(x => x.ReceivedQty),
                     SellingQuantity = s.Sum(x => x.SalesQty),
                     Purchase = s.Sum(x => x.UnitPurchasePrice * x.SalesQty),
                     PurchaseStockIn = s.Sum(x => x.UnitPurchasePrice * x.ReceivedQty),
                     Sale = s.Sum(x => x.UnitSellingPrice * x.SalesQty),
-                    Product = s.FirstOrDefault().Variant.Name,
-                    LowStockQty = s.FirstOrDefault().Variant.LowStockWarningQuantity,
+                    Product = s.FirstOrDefault()!.Variant.Name,
+                    LowStockQty = s.FirstOrDefault()!.Variant.LowStockWarningQuantity,
                     Balance = _unitOfWork.StockTransfer.GetStockQuantity(s.Key, (int)applicationUser.ShopId),
                     ProfitLoss = s.Sum(x => x.UnitSellingPrice * x.SalesQty) - s.Sum(x => x.UnitPurchasePrice * x.SalesQty)
                 }).ToList();
@@ -176,14 +179,14 @@ namespace BHWeb.Areas.Inventory.Controllers
                 .Select(s => new StockTransferVM()
                 {
                     VariantId = s.Key,
-                    Code = s.FirstOrDefault().Variant.VariantCode,
+                    Code = s.FirstOrDefault()!.Variant.VariantCode,
                     ReturningToSupplierQuantity = s.Sum(x => x.ReceivedQty),
                     SellingQuantity = s.Sum(x => x.SalesQty),
                     Purchase = s.Sum(x => x.UnitPurchasePrice * x.SalesQty),
                     PurchaseStockReturn = s.Sum(x => x.UnitPurchasePrice * x.ReceivedQty),
                     Sale = s.Sum(x => x.UnitSellingPrice * x.SalesQty),
-                    Product = s.FirstOrDefault().Variant.Name,
-                    LowStockQty = s.FirstOrDefault().Variant.LowStockWarningQuantity,
+                    Product = s.FirstOrDefault()!.Variant.Name,
+                    LowStockQty = s.FirstOrDefault()!.Variant.LowStockWarningQuantity,
                     //Balance = s.Sum(x => x.ReceivedQty) - s.Sum(x => x.SalesQty),
                     Balance = _unitOfWork.StockTransfer.GetStockQuantity(s.Key, (int)applicationUser.ShopId),
                     ProfitLoss = s.Sum(x => x.UnitSellingPrice * x.SalesQty) - s.Sum(x => x.UnitPurchasePrice * x.SalesQty)
@@ -210,14 +213,14 @@ namespace BHWeb.Areas.Inventory.Controllers
                 .Select(s => new StockTransferVM()
                 {
                     VariantId = s.Key,
-                    Code = s.FirstOrDefault().Variant.VariantCode,
+                    Code = s.FirstOrDefault()!.Variant.VariantCode,
                     ReceivingQuantity = s.Sum(x => x.ReceivedQty),
                     SellingQuantity = s.Sum(x => x.SalesQty),
                     Purchase = s.Sum(x => x.UnitPurchasePrice * x.SalesQty),
                     PurchaseStockIn = s.Sum(x => x.UnitPurchasePrice * x.ReceivedQty),
                     Sale = s.Sum(x => x.UnitSellingPrice * x.SalesQty),
-                    Product = s.FirstOrDefault().Variant.Name,
-                    LowStockQty = s.FirstOrDefault().Variant.LowStockWarningQuantity,
+                    Product = s.FirstOrDefault()!.Variant.Name,
+                    LowStockQty = s.FirstOrDefault()!.Variant.LowStockWarningQuantity,
                     Balance = _unitOfWork.StockTransfer.GetStockQuantity(s.Key, (int)applicationUser.ShopId),
                     ProfitLoss = s.Sum(x => x.UnitSellingPrice * x.SalesQty) - s.Sum(x => x.UnitPurchasePrice * x.SalesQty)
                 }).ToList();

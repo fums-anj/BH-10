@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BH.DataAccess.Migrations
 {
     [DbContext(typeof(BHContext))]
-    [Migration("20240706124537_espancechanges")]
-    partial class espancechanges
+    [Migration("20250112073939_initialDB")]
+    partial class initialDB
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -400,7 +400,7 @@ namespace BH.DataAccess.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedDate = new DateTime(2024, 7, 6, 17, 45, 35, 274, DateTimeKind.Local).AddTicks(7094),
+                            CreatedDate = new DateTime(2025, 1, 12, 12, 39, 37, 808, DateTimeKind.Local).AddTicks(665),
                             IsDeleted = false,
                             IsDisable = false,
                             Name = "Cash"
@@ -408,7 +408,7 @@ namespace BH.DataAccess.Migrations
                         new
                         {
                             Id = 2,
-                            CreatedDate = new DateTime(2024, 7, 6, 17, 45, 35, 274, DateTimeKind.Local).AddTicks(7097),
+                            CreatedDate = new DateTime(2025, 1, 12, 12, 39, 37, 808, DateTimeKind.Local).AddTicks(666),
                             IsDeleted = false,
                             IsDisable = false,
                             Name = "Bank Transfer"
@@ -416,7 +416,7 @@ namespace BH.DataAccess.Migrations
                         new
                         {
                             Id = 3,
-                            CreatedDate = new DateTime(2024, 7, 6, 17, 45, 35, 274, DateTimeKind.Local).AddTicks(7098),
+                            CreatedDate = new DateTime(2025, 1, 12, 12, 39, 37, 808, DateTimeKind.Local).AddTicks(667),
                             IsDeleted = false,
                             IsDisable = false,
                             Name = "Online Payment"
@@ -424,7 +424,7 @@ namespace BH.DataAccess.Migrations
                         new
                         {
                             Id = 4,
-                            CreatedDate = new DateTime(2024, 7, 6, 17, 45, 35, 274, DateTimeKind.Local).AddTicks(7100),
+                            CreatedDate = new DateTime(2025, 1, 12, 12, 39, 37, 808, DateTimeKind.Local).AddTicks(669),
                             IsDeleted = false,
                             IsDisable = false,
                             Name = "Credit Card"
@@ -432,7 +432,7 @@ namespace BH.DataAccess.Migrations
                         new
                         {
                             Id = 5,
-                            CreatedDate = new DateTime(2024, 7, 6, 17, 45, 35, 274, DateTimeKind.Local).AddTicks(7102),
+                            CreatedDate = new DateTime(2025, 1, 12, 12, 39, 37, 808, DateTimeKind.Local).AddTicks(670),
                             IsDeleted = false,
                             IsDisable = false,
                             Name = "Cheque"
@@ -691,7 +691,7 @@ namespace BH.DataAccess.Migrations
                         {
                             Id = 1,
                             CostCenterNum = 1,
-                            CreatedDateTime = new DateTime(2024, 7, 6, 17, 45, 35, 274, DateTimeKind.Local).AddTicks(6716),
+                            CreatedDateTime = new DateTime(2025, 1, 12, 12, 39, 37, 808, DateTimeKind.Local).AddTicks(428),
                             CustomerCode = 0,
                             Name = "globalnumber",
                             ProficitCenterNum = 1,
@@ -1475,7 +1475,7 @@ namespace BH.DataAccess.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedDate = new DateTime(2024, 7, 6, 17, 45, 35, 274, DateTimeKind.Local).AddTicks(7036),
+                            CreatedDate = new DateTime(2025, 1, 12, 12, 39, 37, 808, DateTimeKind.Local).AddTicks(629),
                             IsDeleted = false,
                             IsDisable = false,
                             IsWaight = false,
@@ -1485,7 +1485,7 @@ namespace BH.DataAccess.Migrations
                         new
                         {
                             Id = 2,
-                            CreatedDate = new DateTime(2024, 7, 6, 17, 45, 35, 274, DateTimeKind.Local).AddTicks(7042),
+                            CreatedDate = new DateTime(2025, 1, 12, 12, 39, 37, 808, DateTimeKind.Local).AddTicks(635),
                             IsDeleted = false,
                             IsDisable = false,
                             IsWaight = false,
@@ -1495,7 +1495,7 @@ namespace BH.DataAccess.Migrations
                         new
                         {
                             Id = 3,
-                            CreatedDate = new DateTime(2024, 7, 6, 17, 45, 35, 274, DateTimeKind.Local).AddTicks(7044),
+                            CreatedDate = new DateTime(2025, 1, 12, 12, 39, 37, 808, DateTimeKind.Local).AddTicks(636),
                             IsDeleted = false,
                             IsDisable = false,
                             IsWaight = true,
@@ -1505,7 +1505,7 @@ namespace BH.DataAccess.Migrations
                         new
                         {
                             Id = 4,
-                            CreatedDate = new DateTime(2024, 7, 6, 17, 45, 35, 274, DateTimeKind.Local).AddTicks(7049),
+                            CreatedDate = new DateTime(2025, 1, 12, 12, 39, 37, 808, DateTimeKind.Local).AddTicks(637),
                             IsDeleted = false,
                             IsDisable = false,
                             IsWaight = true,
@@ -1515,7 +1515,7 @@ namespace BH.DataAccess.Migrations
                         new
                         {
                             Id = 5,
-                            CreatedDate = new DateTime(2024, 7, 6, 17, 45, 35, 274, DateTimeKind.Local).AddTicks(7051),
+                            CreatedDate = new DateTime(2025, 1, 12, 12, 39, 37, 808, DateTimeKind.Local).AddTicks(639),
                             IsDeleted = false,
                             IsDisable = false,
                             IsWaight = true,

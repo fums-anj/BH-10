@@ -1,4 +1,4 @@
-﻿using BH.DataAccess.Infrastructure.Interface.IRepository;
+using BH.DataAccess.Infrastructure.Interface.IRepository;
 using BH.Models.AccountManagement;
 using BH.Models.CustomerManagement;
 using BH.Models.InventoryManagement;
@@ -13,6 +13,8 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Security.Claims;
+
+#nullable disable
 
 namespace BHWeb.Areas.Customer.Controllers
 {
@@ -388,8 +390,8 @@ namespace BHWeb.Areas.Customer.Controllers
             SaleOrderVM.SaleOrderVMs = SaleOrderVM.SaleOrderLineList.GroupBy(g => g.VariantId).Select(s => new SaleOrderVM()
             {
                 VariantId = s.Key,
-                Variant = s.FirstOrDefault().Variant,
-                StockTransfer = s.FirstOrDefault().StockTransfer,
+                Variant = s.FirstOrDefault()!.Variant,
+                StockTransfer = s.FirstOrDefault()!.StockTransfer,
                 SalesQtyGroupBy = s.Sum(x => x.StockTransfer.SalesQty)
             }).ToList();
             SaleOrderVM.SaleOrder.Id = (int)PrintSaleOrderId;
@@ -609,8 +611,8 @@ namespace BHWeb.Areas.Customer.Controllers
             SaleOrderVM.SaleOrderVMs = SaleOrderVM.SaleOrderLineList.GroupBy(g => g.VariantId).Select(s => new SaleOrderVM()
             {
                 VariantId = s.Key,
-                Variant = s.FirstOrDefault().Variant,
-                StockTransfer = s.FirstOrDefault().StockTransfer,
+                Variant = s.FirstOrDefault()!.Variant,
+                StockTransfer = s.FirstOrDefault()!.StockTransfer,
                 SalesQtyGroupBy = s.Sum(x => x.StockTransfer.SalesQty)
             }).ToList();
             foreach (var item in SaleOrderVM.SaleOrderLineList)

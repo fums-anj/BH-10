@@ -55,7 +55,7 @@ namespace BH.DataAccess.Infrastructure.Concrete.ProductManagementRepository
         public string GenerateSKU(string shopName)
         {
 			Random random = new Random();
-			int randomNumber = random.Next(1000, 10000);
+			int randomNumber = random.Next(10000, 100000);
 			string SKU = DateTime.UtcNow.Year.ToString("d4") + DateTime.UtcNow.Month.ToString("d2") + DateTime.UtcNow.Day.ToString("d2");
             return SKU + randomNumber.ToString().Trim();
         }

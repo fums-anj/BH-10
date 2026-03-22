@@ -9,6 +9,8 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
+#nullable disable
+
 namespace BHWeb.Areas.Accounts.Controllers
 {
     [Area("Accounts")]

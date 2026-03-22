@@ -1,4 +1,4 @@
-﻿@model ManageCashVM
+@model ManageCashVM
 @{
     ViewData["Title"] = "Supplier Cash Detail";
     var objList = @Model.manageCashList.GroupBy(g => g.Supplier.Name)

@@ -763,8 +763,6 @@ namespace BH.DataAccess.Migrations
                     ApprovedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     CostCenter = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     ExpenseTypeId = table.Column<int>(type: "int", nullable: false),
-                    ExpenseMonthId = table.Column<int>(type: "int", nullable: false),
-                    ExpenseYearId = table.Column<int>(type: "int", nullable: false),
                     CreatedBy = table.Column<string>(type: "nvarchar(450)", nullable: true),
                     ModifiedBy = table.Column<string>(type: "nvarchar(450)", nullable: true),
                     CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
@@ -787,21 +785,9 @@ namespace BH.DataAccess.Migrations
                         principalTable: "AspNetUsers",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_Expenses_ExpenseMonths_ExpenseMonthId",
-                        column: x => x.ExpenseMonthId,
-                        principalTable: "ExpenseMonths",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
                         name: "FK_Expenses_ExpenseTypes_ExpenseTypeId",
                         column: x => x.ExpenseTypeId,
                         principalTable: "ExpenseTypes",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Expenses_ExpenseYears_ExpenseYearId",
-                        column: x => x.ExpenseYearId,
-                        principalTable: "ExpenseYears",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -1774,18 +1760,18 @@ namespace BH.DataAccess.Migrations
             migrationBuilder.InsertData(
                 table: "GlobalNumbers",
                 columns: new[] { "Id", "CostCenterNum", "CreatedDateTime", "CustomerCode", "Name", "ProficitCenterNum", "SKU", "VariantCode" },
-                values: new object[] { 1, 1, new DateTime(2024, 5, 24, 15, 21, 49, 729, DateTimeKind.Local).AddTicks(101), 0, "globalnumber", 1, 1, 0 });
+                values: new object[] { 1, 1, new DateTime(2025, 1, 12, 12, 39, 37, 808, DateTimeKind.Local).AddTicks(428), 0, "globalnumber", 1, 1, 0 });
 
             migrationBuilder.InsertData(
                 table: "PaymentMethods",
                 columns: new[] { "Id", "CreatedBy", "CreatedDate", "IsDeleted", "IsDisable", "ModifiedBy", "ModifiedDate", "Name", "ShopId" },
                 values: new object[,]
                 {
-                    { 1, null, new DateTime(2024, 5, 24, 15, 21, 49, 729, DateTimeKind.Local).AddTicks(376), false, false, null, null, "Cash", null },
-                    { 2, null, new DateTime(2024, 5, 24, 15, 21, 49, 729, DateTimeKind.Local).AddTicks(377), false, false, null, null, "Bank Transfer", null },
-                    { 3, null, new DateTime(2024, 5, 24, 15, 21, 49, 729, DateTimeKind.Local).AddTicks(379), false, false, null, null, "Online Payment", null },
-                    { 4, null, new DateTime(2024, 5, 24, 15, 21, 49, 729, DateTimeKind.Local).AddTicks(380), false, false, null, null, "Credit Card", null },
-                    { 5, null, new DateTime(2024, 5, 24, 15, 21, 49, 729, DateTimeKind.Local).AddTicks(382), false, false, null, null, "Cheque", null }
+                    { 1, null, new DateTime(2025, 1, 12, 12, 39, 37, 808, DateTimeKind.Local).AddTicks(665), false, false, null, null, "Cash", null },
+                    { 2, null, new DateTime(2025, 1, 12, 12, 39, 37, 808, DateTimeKind.Local).AddTicks(666), false, false, null, null, "Bank Transfer", null },
+                    { 3, null, new DateTime(2025, 1, 12, 12, 39, 37, 808, DateTimeKind.Local).AddTicks(667), false, false, null, null, "Online Payment", null },
+                    { 4, null, new DateTime(2025, 1, 12, 12, 39, 37, 808, DateTimeKind.Local).AddTicks(669), false, false, null, null, "Credit Card", null },
+                    { 5, null, new DateTime(2025, 1, 12, 12, 39, 37, 808, DateTimeKind.Local).AddTicks(670), false, false, null, null, "Cheque", null }
                 });
 
             migrationBuilder.InsertData(
@@ -1793,11 +1779,11 @@ namespace BH.DataAccess.Migrations
                 columns: new[] { "Id", "CreatedBy", "CreatedDate", "IsDeleted", "IsDisable", "IsWaight", "ModifiedBy", "ModifiedDate", "Name", "ShopId", "ValueInBaseUnit" },
                 values: new object[,]
                 {
-                    { 1, null, new DateTime(2024, 5, 24, 15, 21, 49, 729, DateTimeKind.Local).AddTicks(330), false, false, false, null, null, "Piece", null, 1.0 },
-                    { 2, null, new DateTime(2024, 5, 24, 15, 21, 49, 729, DateTimeKind.Local).AddTicks(335), false, false, false, null, null, "Packing", null, 1.0 },
-                    { 3, null, new DateTime(2024, 5, 24, 15, 21, 49, 729, DateTimeKind.Local).AddTicks(336), false, false, true, null, null, "KG", null, 1.0 },
-                    { 4, null, new DateTime(2024, 5, 24, 15, 21, 49, 729, DateTimeKind.Local).AddTicks(340), false, false, true, null, null, "Gram", null, 0.001 },
-                    { 5, null, new DateTime(2024, 5, 24, 15, 21, 49, 729, DateTimeKind.Local).AddTicks(346), false, false, true, null, null, "mg", null, 9.9999999999999995E-07 }
+                    { 1, null, new DateTime(2025, 1, 12, 12, 39, 37, 808, DateTimeKind.Local).AddTicks(629), false, false, false, null, null, "Piece", null, 1.0 },
+                    { 2, null, new DateTime(2025, 1, 12, 12, 39, 37, 808, DateTimeKind.Local).AddTicks(635), false, false, false, null, null, "Packing", null, 1.0 },
+                    { 3, null, new DateTime(2025, 1, 12, 12, 39, 37, 808, DateTimeKind.Local).AddTicks(636), false, false, true, null, null, "KG", null, 1.0 },
+                    { 4, null, new DateTime(2025, 1, 12, 12, 39, 37, 808, DateTimeKind.Local).AddTicks(637), false, false, true, null, null, "Gram", null, 0.001 },
+                    { 5, null, new DateTime(2025, 1, 12, 12, 39, 37, 808, DateTimeKind.Local).AddTicks(639), false, false, true, null, null, "mg", null, 9.9999999999999995E-07 }
                 });
 
             migrationBuilder.CreateIndex(
@@ -1945,19 +1931,9 @@ namespace BH.DataAccess.Migrations
                 column: "CreatedBy");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Expenses_ExpenseMonthId",
-                table: "Expenses",
-                column: "ExpenseMonthId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Expenses_ExpenseTypeId",
                 table: "Expenses",
                 column: "ExpenseTypeId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Expenses_ExpenseYearId",
-                table: "Expenses",
-                column: "ExpenseYearId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Expenses_ModifiedBy",
@@ -2476,7 +2452,13 @@ namespace BH.DataAccess.Migrations
                 name: "CreditNotes");
 
             migrationBuilder.DropTable(
+                name: "ExpenseMonths");
+
+            migrationBuilder.DropTable(
                 name: "Expenses");
+
+            migrationBuilder.DropTable(
+                name: "ExpenseYears");
 
             migrationBuilder.DropTable(
                 name: "GlobalNumbers");
@@ -2515,13 +2497,7 @@ namespace BH.DataAccess.Migrations
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
-                name: "ExpenseMonths");
-
-            migrationBuilder.DropTable(
                 name: "ExpenseTypes");
-
-            migrationBuilder.DropTable(
-                name: "ExpenseYears");
 
             migrationBuilder.DropTable(
                 name: "OrderHeaders");

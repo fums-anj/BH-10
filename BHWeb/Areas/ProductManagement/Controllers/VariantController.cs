@@ -12,6 +12,8 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using SkiaSharp;
 
 
+#nullable disable
+
 namespace BHWeb.Areas.ProductManagement.Controllers
 {
     [Area("ProductManagement")]
@@ -203,21 +205,18 @@ namespace BHWeb.Areas.ProductManagement.Controllers
 			{
 				return NotFound();
 			}
-			if (string.IsNullOrEmpty(SKU) || SKU.Length != 12 || !SKU.All(char.IsDigit))
-			{
-				return BadRequest("Invalid SKU. Please provide a 12-digit numeric SKU.");
-			}
+			
 			try
 			{
 				Barcode barcode = new Barcode
 				{
 
-					Alignment = AlignmentPositions.Center,
-					Height = 50,
-					Width = 140,
+					Alignment = AlignmentPositions.Left,
+					Height = 70,
+					Width = 240,
 					BackColor = SKColors.White,
 					ForeColor = SKColors.Black,
-					EncodedType = BarcodeStandard.Type.Ean13,
+					EncodedType = BarcodeStandard.Type.Code128,
 				};
 
 				SkiaSharp.SKImage barimage = barcode.Encode(SKU);
@@ -230,7 +229,7 @@ namespace BHWeb.Areas.ProductManagement.Controllers
 					ViewBag.Barcode = "data:image/png;base64," + Convert.ToBase64String(ms.ToArray());
 				}
 			}
-			catch (Exception ex)
+			catch (Exception)
 			{
 				// Log or handle the exception as needed
 				return StatusCode(500, "An error occurred while generating the barcode.");

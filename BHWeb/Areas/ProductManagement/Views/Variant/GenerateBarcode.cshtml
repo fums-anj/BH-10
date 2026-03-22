@@ -1,4 +1,4 @@
-﻿@model Variant
+@model Variant
 @using Microsoft.Extensions.Options
 @using System.Globalization;
 @{
@@ -8,29 +8,48 @@
 }
 <style>
     body {
-        padding : 0px;
-        margin : 0px;
+        padding: 0px;
+        margin: 0px;
         width: 950px;
         background-color: #fff;
     }
 </style>
 <form method="post">
     <input hidden asp-for="Id" />
-    <div class="col-2">
-        <div class="d-flex">
-            @if (@Model.ApplicationUser != null)
-            {
-                <small style="color:#000"><b>@Model.ApplicationUser.Shop.Name</b></small>
-            }
+    <div class="row">
+        <div class="col-3 p-2">
+            <div class="d-flex">
+                @if (@Model.ApplicationUser != null)
+                {
+                    <small style="color:#000"><b>@Model.ApplicationUser.Shop.Name</b></small>
+                }
+            </div>
+            <div class="d-flex">
+                <img src="@ViewBag.Barcode" alt="Barcode" />
+            </div>
+            <div class="d-flex">
+                @if (Model.ListPrice != null)
+                {
+                    <strong>@Model.VariantCode (@ListPrice.ToString("C", CultureInfo.CreateSpecificCulture("ur-PK")))</strong>
+                }
+            </div>
         </div>
-        <div class="d-flex">
-            <img src="@ViewBag.Barcode" alt="Barcode" />
-        </div>
-        <div class="d-flex">
-            @if (Model.ListPrice != null)
-            {
-                <strong>@Model.VariantCode (@ListPrice.ToString("C", CultureInfo.CreateSpecificCulture("ur-PK")))</strong>
-            }
+        <div class="col-2 border-1 border-dark">
+            <div class="d-flex">
+                @if (@Model.ApplicationUser != null)
+                {
+                    <small style="color:#000"><b>@Model.ApplicationUser.Shop.Name</b></small>
+                }
+            </div>
+            <div class="d-flex">
+                <img src="@ViewBag.Barcode" alt="Barcode" />
+            </div>
+            <div class="d-flex">
+                @if (Model.ListPrice != null)
+                {
+                    <strong>@Model.VariantCode (@ListPrice.ToString("C", CultureInfo.CreateSpecificCulture("ur-PK")))</strong>
+                }
+            </div>
         </div>
     </div>
     <div class="ignorForPrint">
@@ -45,13 +64,13 @@
         </div>
     </div>
 </form>
-@section Scripts{
+@section Scripts {
     @{
         <partial name="_ValidationScriptsPartial" />
     }
     <script>
-        $(document).ready(function () {
-            $("#print").click(function () {
+        $(document).ready(function() {
+            $("#print").click(function() {
                 $(".ignorForPrint").hide();
                 window.print();
                 $(".ignorForPrint").show();
