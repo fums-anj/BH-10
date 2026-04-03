@@ -118,12 +118,6 @@
                     </div>
                     <input asp-for="ReceivedAmount" id="rspaid" class="form-control" />
                 </div>
-                @* <div class="input-group mb-1">
-                <div class="input-group-prepend col-6">
-                <label asp-for="OrderDate" class="input-group-text"></label>
-                </div>
-                <input asp-for="OrderDate" class="form-control" />
-                </div> *@
                 <div class="mb-1">
                     <input asp-action="PlaceOrder" id="btnPlaceOrderNoPrint" type="submit" value="Place Order - F3" asp-area="Customer" asp-controller="POS" asp-action="PlaceOrder" asp-route-NoPrint="noprint" class="btn btn-secondary" style="width:326px" />
                 </div>

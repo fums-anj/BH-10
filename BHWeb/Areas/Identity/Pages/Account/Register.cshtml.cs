@@ -133,32 +133,36 @@ namespace BHWeb.Areas.Identity.Pages.Account
         {
             ReturnUrl = returnUrl;
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
-            Input = new InputModel()
-            {
-                RoleList = _roleManager.Roles.Select(x => x.Name).Select(i => new SelectListItem
+
+            var roles = User.IsInRole(SDRoles.Role_ShopAdmin)
+                ? new List<string>
                 {
-                    Text = i,
-                    Value = i
-                }),
+                    SDRoles.Role_ShopUser,
+                    SDRoles.Role_ShopEmployee,
+                    SDRoles.Role_Saleman
+                }
+                : _roleManager.Roles.Select(r => r.Name).ToList();
+
+            Input = new InputModel
+            {
+                RoleList = roles.Select(role => new SelectListItem
+                {
+                    Text = role,
+                    Value = role
+                }).ToList(),
+
                 CompanyList = _unitOfWork.Company.GetAll().Select(i => new SelectListItem
                 {
                     Text = i.Name,
                     Value = i.Id.ToString()
-                }),
+                }).ToList(),
+
                 ShopList = _unitOfWork.Shop.GetAll().Select(i => new SelectListItem
                 {
                     Text = i.Name,
                     Value = i.Id.ToString()
-                }),
+                }).ToList()
             };
-            if (User.IsInRole(SDRoles.Role_ShopAdmin))
-            {
-                Input.RoleList = _roleManager.Roles.Where(x => x.Name == SDRoles.Role_ShopUser || x.Name == SDRoles.Role_ShopEmployee || x.Name == SDRoles.Role_Saleman).Select(x => x.Name).Select(i => new SelectListItem
-                {
-                    Text = i,
-                    Value = i
-                });
-            }
         }
 
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)

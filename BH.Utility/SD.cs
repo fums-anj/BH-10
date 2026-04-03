@@ -13,7 +13,7 @@ namespace BH.Utility
         public const string Role_Admin = "Admin";
         public const string Role_Employee = "Employee";
         public const string Role_ShopAdmin = "Shop Admin";
-        public const string Role_ShopUser = "User";
+        public const string Role_ShopUser = "Shop User";
         public const string Role_ShopEmployee = "Org Employee";
         public const string Role_Saleman = "Saleman";
     }
